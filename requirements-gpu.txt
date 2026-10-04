@@ -1,0 +1,5 @@
+# ── GPU 推理加速（只有 NVIDIA 机器需要，Mac 上别装）──
+# onnxruntime-gpu 在 macOS 上没有 wheel，装了会直接失败。
+onnxruntime-gpu>=1.18
+# TensorRT 引擎由 ultralytics 的 export 生成，需要 TensorRT：
+#   pip install tensorrt

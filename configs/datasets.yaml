@@ -1,0 +1,138 @@
+# 数据源清单 —— scripts/download_datasets.py 按此下载
+# access 字段说明：
+#   open       无需凭据，脚本可直接下载
+#   api_key    需要环境变量 ROBOFLOW_API_KEY（免费注册获取）
+#   kaggle     需要 ~/.kaggle/kaggle.json
+#   manual     需要人工申请/联系作者，脚本只打印指引
+
+datasets:
+
+  # ---------------- 白光 · Roboflow Universe（需免费 API key）----------------
+  # version 填 latest 时脚本自动取最新版本号
+  - name: mould_detection_v3
+    modality: white
+    access: api_key
+    provider: roboflow
+    workspace: mould-detection
+    project: mould-detection-v3
+    version: latest
+    format: yolov8
+    license: "CC BY 4.0"
+    attribution: "mould-detection / mould-detection-V3, Roboflow Universe, CC BY 4.0"
+    url: https://universe.roboflow.com/mould-detection/mould-detection-v3
+    note: "984 图，单类 mould，7 个版本。正样本主源，必下。"
+    classes: [mould]
+    role: positive
+
+  - name: salford_mold_detection
+    modality: white
+    access: api_key
+    provider: roboflow
+    workspace: university-of-salford-d3dwy
+    project: mold-detection-project
+    version: latest
+    format: yolov8
+    license: "CC BY 4.0"
+    attribution: "University of Salford / mold-detection-project, Roboflow Universe, CC BY 4.0"
+    url: https://universe.roboflow.com/university-of-salford-d3dwy/mold-detection-project
+    note: "475 图，单类 mold，2 个版本。室内霉菌，补充正样本。"
+    classes: [mold]
+    role: positive
+
+  - name: building_defect_on_walls
+    modality: white
+    access: api_key
+    provider: roboflow
+    workspace: builddef2
+    project: building-defect-on-walls
+    version: latest
+    format: yolov8
+    license: "CC BY 4.0"
+    attribution: "Builddef2 / building-defect-on-walls, Roboflow Universe, CC BY 4.0"
+    url: https://universe.roboflow.com/builddef2/building-defect-on-walls
+    note: |
+      472 图，5 类：crack / mold / peeling_paint / stairstep_crack / water_seepage。
+      这个最有价值——一份数据同时喂了三种类别：
+        mold          → mold_black（正样本）
+        water_seepage → damp_stain（负类，压水渍误报）
+        peeling_paint / crack / stairstep_crack → substrate_damage（L5 判据）
+    classes: [crack, mold, peeling_paint, stairstep_crack, water_seepage]
+    role: mixed
+
+  # damp wall 系列没有稳定的单一项目 id，需在 Universe 搜索后填入
+  # https://universe.roboflow.com/search?q=class:damp+wall
+  - name: damp_wall_series
+    modality: white
+    access: manual
+    provider: roboflow_search
+    search_url: https://universe.roboflow.com/search?q=class%3Adamp+wall
+    note: "在 Universe 搜索 class:damp wall，挑选合适项目后按上面的格式填入 workspace/project/version 再跑脚本。"
+    role: negative
+
+  # ---------------- 白光 · Kaggle（需 kaggle.json）----------------
+  - name: kaggle_mold_detection
+    modality: white
+    access: kaggle
+    provider: kaggle
+    slug: quasaronrails/mold-detection-dataset
+    license: "Kaggle 数据集条款，下载前核对"
+    url: https://www.kaggle.com/datasets/quasaronrails/mold-detection-dataset
+    role: positive
+
+  # ---------------- 白光 · GitHub（部分开放）----------------
+  - name: bd3_samples
+    modality: white
+    access: open
+    provider: github_contents
+    repo: Praveenkottari/BD3-Dataset
+    paths:
+      - "sample images/class_images/Algae"
+      - "sample images/class_images/stain"
+      - "sample images/class_images/peeling"
+      - "sample images/class_images/spalling"
+      - "sample images/class_images/normal"
+    license: "仓库未声明 license，仅作冒烟测试用，勿用于发布模型"
+    url: https://github.com/Praveenkottari/BD3-Dataset
+    note: "仓库只公开每类 5 张样例图（共约 32 张）。完整 3,965 图需联系论文作者。"
+    role: smoke_test
+
+  - name: bd3_full
+    modality: white
+    access: manual
+    provider: contact_author
+    url: https://github.com/Praveenkottari/BD3-Dataset
+    paper: https://dl.acm.org/doi/10.1145/3671127.3698789
+    note: |
+      完整 BD3（Algae 624 / Stain 521 / Peeling 520 / Spalling 500 / Normal 600 等，共 3,965 图）
+      未在 GitHub 上直接提供下载。获取方式：阅读 BuildSys'24 论文并按文中联系方式向作者申请，
+      或在仓库提 issue 询问数据分发链接。拿到压缩包后解压到 data/raw/bd3_full/ 即可被清洗管线识别。
+    role: damage
+
+  - name: uav_building_surface_defects
+    modality: white
+    access: manual
+    provider: journal
+    url: https://www.nature.com/articles/s41597-025-06318-5
+    note: "Scientific Data 论文附带的开放数据集，按论文 Data Availability 段落给出的仓库链接下载。"
+    role: damage
+
+  # ---------------- 紫外 · 自采（公开数据集里没有）----------------
+  - name: uv_self_collected
+    modality: uv
+    access: manual
+    provider: self
+    note: |
+      395nm 紫外数据必须自采，公开数据集中不存在。采集协议见 docs/UV_CAPTURE_PROTOCOL.md。
+      目标规模：fluor_point / local / band / saturated / chaotic 每类 >= 200 张，
+      fluor_artifact 干扰负类 >= 300 张。
+      放入 data/raw/uv_self/ 后由 prepare_dataset.py 处理。
+    role: uv_primary
+
+  - name: paired_calibration
+    modality: paired
+    access: manual
+    provider: self
+    note: |
+      白光/紫外同机位配对样本 150~300 组，仅用于标定两套面积阈值的映射关系，不参与训练。
+      放入 data/paired_calib/{white,uv}/ 同名文件配对。
+    role: calibration

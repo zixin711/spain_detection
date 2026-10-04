@@ -1,0 +1,756 @@
+{
+  "record_id": "20260828-222850-e067",
+  "created_at": "2026-08-28T22:28:50+08:00",
+  "inputs": [
+    {
+      "index": 0,
+      "filename": "white.jpg",
+      "modality": "white",
+      "modality_conf": 1.0,
+      "modality_source": "auto",
+      "width": 1274,
+      "height": 849,
+      "quality": {
+        "blur_var": 1184.86,
+        "exposure": "ok",
+        "overexposed_ratio": 0.0,
+        "underexposed_ratio": 0.0,
+        "passed": true,
+        "reasons": [],
+        "warnings": []
+      },
+      "wall_area_px": 1080861,
+      "wall_area_ratio": 0.9993,
+      "wall_area_fallback": false
+    },
+    {
+      "index": 1,
+      "filename": "uv.jpg",
+      "modality": "uv",
+      "modality_conf": 1.0,
+      "modality_source": "auto",
+      "width": 1313,
+      "height": 876,
+      "quality": {
+        "blur_var": 1037.7,
+        "exposure": "ok",
+        "overexposed_ratio": 0.0,
+        "underexposed_ratio": 0.0034,
+        "passed": true,
+        "reasons": [],
+        "warnings": []
+      },
+      "wall_area_px": 1006128,
+      "wall_area_ratio": 0.8748,
+      "wall_area_fallback": false
+    }
+  ],
+  "fusion": {
+    "paired": true,
+    "registration_ok": true,
+    "inlier_ratio": 0.9175,
+    "white_index": 0,
+    "uv_index": 1
+  },
+  "calibration": {
+    "mode": "none",
+    "px_per_cm": null
+  },
+  "summary": {
+    "level": "L3",
+    "level_name": "中度（块状/缝隙侵入）",
+    "level_range": [
+      "L3",
+      "L3"
+    ],
+    "severity_in_level": 0.53,
+    "needs_confirmation": false,
+    "confirmation_hint": "",
+    "suspect": false,
+    "i_mold": 0.4201,
+    "rules_hit": [
+      "area_5_to_30_percent",
+      "uv_coverage_l3_band"
+    ],
+    "conflict": false,
+    "confidence": 0.7463,
+    "unknown_reasons": [],
+    "index_level": "L3",
+    "visible_area_ratio": 0.173386,
+    "fluorescent_area_ratio": 0.317701,
+    "channels": {
+      "H": 0.5228,
+      "M": 0.1241,
+      "L": 0.6702
+    },
+    "channel_weights": {
+      "H": 0.4,
+      "M": 0.35,
+      "L": 0.25
+    },
+    "available_modalities": [
+      "white",
+      "uv"
+    ],
+    "instance_count": 104,
+    "by_class": {
+      "mold_white": 42,
+      "mold_black": 7,
+      "fluor_band": 2,
+      "fluor_local": 11,
+      "fluor_point": 42
+    },
+    "excluded": {},
+    "depth_band": ">2.0mm",
+    "dominant_fluor_pattern": "fluor_band"
+  },
+  "instances": [
+    {
+      "id": 1,
+      "source_index": 0,
+      "modality": "white",
+      "cls": "mold_white",
+      "cls_cn": "白色绒毛状霉",
+      "group": "mold",
+      "conf": 0.94,
+      "bbox": [
+        844,
+        48,
+        862,
+        85
+      ],
+      "polygon": [
+        [
+          855,
+          48
+        ],
+        [
+          854,
+          49
+        ],
+        [
+          854,
+          52
+        ],
+        [
+          851,
+          54
+        ],
+        [
+          852,
+          55
+        ],
+        [
+          852,
+          58
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 196,
+      "area_ratio": 0.000181,
+      "area_cm2": null,
+      "position_hint": "画面上中区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.0287,
+        "val_mean": 0.8335,
+        "hue_median": 48.0,
+        "fill_ratio": 0.5624,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.2283,
+        "highlight_loss": 0.0,
+        "texture_energy": 1.0
+      },
+      "attenuation": 0.1306,
+      "density": "L",
+      "density_score": 0.1468,
+      "depth_band": "0.5~2.0mm",
+      "thickness_score": 0.6071
+    },
+    {
+      "id": 2,
+      "source_index": 0,
+      "modality": "white",
+      "cls": "mold_white",
+      "cls_cn": "白色绒毛状霉",
+      "group": "mold",
+      "conf": 0.94,
+      "bbox": [
+        610,
+        79,
+        624,
+        99
+      ],
+      "polygon": [
+        [
+          619,
+          79
+        ],
+        [
+          616,
+          82
+        ],
+        [
+          616,
+          84
+        ],
+        [
+          614,
+          86
+        ],
+        [
+          614,
+          89
+        ],
+        [
+          613,
+          90
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 126,
+      "area_ratio": 0.000117,
+      "area_cm2": null,
+      "position_hint": "画面上中区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.0625,
+        "val_mean": 0.8137,
+        "hue_median": 35.0,
+        "fill_ratio": 0.7221,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.312,
+        "highlight_loss": 0.0,
+        "texture_energy": 1.0
+      },
+      "attenuation": 0.1406,
+      "density": "L",
+      "density_score": 0.1933,
+      "depth_band": "0.5~2.0mm",
+      "thickness_score": 0.628
+    },
+    {
+      "id": 3,
+      "source_index": 0,
+      "modality": "white",
+      "cls": "mold_white",
+      "cls_cn": "白色绒毛状霉",
+      "group": "mold",
+      "conf": 0.94,
+      "bbox": [
+        814,
+        86,
+        834,
+        98
+      ],
+      "polygon": [
+        [
+          834,
+          94
+        ],
+        [
+          832,
+          92
+        ],
+        [
+          832,
+          90
+        ],
+        [
+          830,
+          88
+        ],
+        [
+          830,
+          87
+        ],
+        [
+          829,
+          86
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 114,
+      "area_ratio": 0.000105,
+      "area_cm2": null,
+      "position_hint": "画面上中区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.0385,
+        "val_mean": 0.8116,
+        "hue_median": 42.0,
+        "fill_ratio": 0.8507,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.2461,
+        "highlight_loss": 0.0,
+        "texture_energy": 1.0
+      },
+      "attenuation": 0.1517,
+      "density": "L",
+      "density_score": 0.2206,
+      "depth_band": "0.5~2.0mm",
+      "thickness_score": 0.6115
+    },
+    {
+      "id": 4,
+      "source_index": 0,
+      "modality": "white",
+      "cls": "mold_black",
+      "cls_cn": "黑色霉斑",
+      "group": "mold",
+      "conf": 0.94,
+      "bbox": [
+        414,
+        114,
+        426,
+        124
+      ],
+      "polygon": [
+        [
+          415,
+          115
+        ],
+        [
+          414,
+          116
+        ],
+        [
+          415,
+          117
+        ],
+        [
+          416,
+          117
+        ],
+        [
+          417,
+          118
+        ],
+        [
+          417,
+          120
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 77,
+      "area_ratio": 7.1e-05,
+      "area_cm2": null,
+      "position_hint": "画面上左区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.1384,
+        "val_mean": 0.6796,
+        "hue_median": 34.0,
+        "fill_ratio": 0.9686,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.5572,
+        "highlight_loss": 0.0,
+        "texture_energy": 1.0
+      },
+      "attenuation": 0.2621,
+      "density": "L",
+      "density_score": 0.27,
+      "depth_band": ">2.0mm",
+      "thickness_score": 0.6893
+    }
+  ],
+  "recommendations": {
+    "title": "中度 · 块状/缝隙侵入",
+    "action": "加强清理",
+    "steps": [
+      "先湿法处理，禁止干刷，干刷会让孢子扬尘扩散",
+      "喷专用除霉剂静置 10~15 分钟",
+      "刷洗后用清水擦净，再强制干燥（风扇/除湿机）",
+      "缝隙霉需要铲除旧填缝剂并重新填缝，表面擦拭只能除色不能除菌"
+    ],
+    "ppe": "N95/KN95 口罩 + 手套 + 护目镜",
+    "recheck": "3 天后复检",
+    "class_notes": [
+      "白色绒毛状霉：先确认不是返碱 —— 用水湿润，溶解消失的是盐析，不溶且有绒毛感的才是霉。",
+      "黑色霉斑：着色深、易渗入涂层微孔。L3 以上通常需要铲涂并重刷防霉涂料，只擦表面会反复。"
+    ],
+    "safety": [
+      "禁止将含氯漂白剂与含氨类清洁剂混用，会产生氯胺气体",
+      "清理时保持通风，佩戴口罩与手套",
+      "孕妇、儿童、呼吸道敏感人群回避作业现场",
+      "单块霉变面积超过约 1 平方米，或涉及中央空调/通风管道，建议交由专业机构处理"
+    ]
+  },
+  "robot_action": {
+    "action": "high_pressure_scrub",
+    "params": {
+      "spray": "high_pressure",
+      "brush": "strong",
+      "dwell_sec": 600,
+      "passes": 2,
+      "grout_focus": true
+    },
+    "target_regions": [
+      {
+        "instance_id": 1,
+        "source_index": 0,
+        "polygon": [
+          [
+            855,
+            48
+          ],
+          [
+            854,
+            49
+          ],
+          [
+            854,
+            52
+          ],
+          [
+            851,
+            54
+          ],
+          [
+            852,
+            55
+          ],
+          [
+            852,
+            58
+          ],
+          [
+            855,
+            62
+          ],
+          [
+            855,
+            64
+          ],
+          [
+            854,
+            65
+          ],
+          [
+            855,
+            66
+          ],
+          [
+            855,
+            68
+          ],
+          [
+            851,
+            71
+          ],
+          [
+            851,
+            72
+          ],
+          [
+            850,
+            73
+          ],
+          [
+            851,
+            74
+          ],
+          [
+            851,
+            76
+          ],
+          [
+            850,
+            77
+          ],
+          [
+            849,
+            77
+          ],
+          [
+            848,
+            78
+          ],
+          [
+            848,
+            80
+          ],
+          [
+            844,
+            83
+          ],
+          [
+            847,
+            85
+          ],
+          [
+            848,
+            84
+          ],
+          [
+            847,
+            83
+          ],
+          [
+            847,
+            81
+          ],
+          [
+            850,
+            79
+          ],
+          [
+            851,
+            79
+          ],
+          [
+            852,
+            80
+          ],
+          [
+            853,
+            79
+          ],
+          [
+            852,
+            78
+          ],
+          [
+            852,
+            76
+          ],
+          [
+            854,
+            74
+          ],
+          [
+            855,
+            74
+          ],
+          [
+            856,
+            73
+          ],
+          [
+            859,
+            75
+          ],
+          [
+            861,
+            73
+          ],
+          [
+            861,
+            70
+          ],
+          [
+            862,
+            69
+          ],
+          [
+            861,
+            68
+          ],
+          [
+            860,
+            69
+          ],
+          [
+            857,
+            67
+          ],
+          [
+            857,
+            63
+          ],
+          [
+            858,
+            62
+          ],
+          [
+            858,
+            55
+          ],
+          [
+            856,
+            53
+          ],
+          [
+            856,
+            49
+          ]
+        ],
+        "bbox": [
+          844,
+          48,
+          862,
+          85
+        ],
+        "cls": "mold_white",
+        "density": "L",
+        "depth_band": "0.5~2.0mm"
+      },
+      {
+        "instance_id": 2,
+        "source_index": 0,
+        "polygon": [
+          [
+            619,
+            79
+          ],
+          [
+            616,
+            82
+          ],
+          [
+            616,
+            84
+          ],
+          [
+            614,
+            86
+          ],
+          [
+            614,
+            89
+          ],
+          [
+            613,
+            90
+          ],
+          [
+            612,
+            90
+          ],
+          [
+            610,
+            92
+          ],
+          [
+            611,
+            93
+          ],
+          [
+            613,
+            91
+          ],
+          [
+            614,
+            91
+          ],
+          [
+            615,
+            90
+          ],
+          [
+            616,
+            90
+          ],
+          [
+            617,
+            91
+          ],
+          [
+            618,
+            91
+          ],
+          [
+            620,
+            93
+          ],
+          [
+            620,
+            96
+          ],
+          [
+            619,
+            97
+          ],
+          [
+            618,
+            97
+          ],
+          [
+            617,
+            98
+          ],
+          [
+            618,
+            99
+          ],
+          [
+            619,
+            98
+          ],
+          [
+            622,
+            98
+          ],
+          [
+            623,
+            99
+          ],
+          [
+            624,
+            98
+          ],
+          [
+            624,
+            97
+          ],
+          [
+            621,
+            94
+          ],
+          [
+            621,
+            91
+          ],
+          [
+            623,
+            89
+          ],
+          [
+            623,
+            86
+          ],
+          [
+            622,
+            85
+          ],
+          [
+            621,
+            85
+          ],
+          [
+            620,
+            84
+          ],
+          [
+            620,
+            80
+          ]
+        ],
+        "bbox": [
+          610,
+          79,
+          624,
+          99
+        ],
+        "cls": "mold_white",
+        "density": "L",
+        "depth_band": "0.5~2.0mm"
+      }
+    ],
+    "note": ""
+  },
+  "model": {
+    "white": "baseline (no weights)",
+    "uv": "baseline (no weights)",
+    "grading_config": "0.4.0"
+  },
+  "disclaimer": "本系统为图像识别辅助工具，不提供菌种鉴定与健康诊断。深度为视觉估计，非实测。"
+}

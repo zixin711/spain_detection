@@ -1,0 +1,23 @@
+services:
+  mold-detect:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: mold-detect:0.3
+    container_name: mold-detect
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../storage:/data/storage
+      - ../models:/app/models:ro          # 换权重不用重建镜像
+      - ../configs:/app/configs:ro        # 改阈值不用重建镜像
+    environment:
+      - MOLD_STORAGE_DIR=/data/storage
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]           # 把服务绑到 3090，PRO 5000 留给训练
+              capabilities: [gpu]

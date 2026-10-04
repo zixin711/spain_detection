@@ -1,0 +1,49 @@
+# 白光专家 seg_white —— 9 类
+classes:
+  0: {name: mold_black,       cn: 黑色霉斑,         group: mold,     color: [40, 40, 40]}
+  1: {name: mold_green,       cn: 绿色霉斑,         group: mold,     color: [60, 140, 60]}
+  2: {name: mold_white,       cn: 白色绒毛状霉,     group: mold,     color: [225, 225, 215]}
+  3: {name: mold_pink,        cn: 粉红-橙色霉,      group: mold,     color: [225, 120, 140]}
+  4: {name: grout_mold,       cn: 缝隙霉,           group: mold,     color: [90, 70, 60]}
+  5: {name: substrate_damage, cn: 基材损伤,         group: damage,   color: [200, 120, 40]}
+  6: {name: damp_stain,       cn: 水渍/返潮,        group: negative, color: [90, 130, 190]}
+  7: {name: efflorescence,    cn: 返碱/盐析,        group: negative, color: [230, 230, 240]}
+  8: {name: dirt_stain,       cn: 污渍/其他,        group: negative, color: [150, 140, 120]}
+
+# 公开数据集原始类名 → 本项目类名。未列出的类丢弃。
+source_map:
+  mould: mold_black
+  mold: mold_black
+  fungus: mold_black
+  mildew: mold_black
+  black-mold: mold_black
+  green-mold: mold_green
+  white-mold: mold_white
+  algae: mold_green
+  moss: mold_green
+  grout: grout_mold
+  peeling: substrate_damage
+  peeling_paint: substrate_damage
+  peeling-paint: substrate_damage
+  crack: substrate_damage
+  stairstep_crack: substrate_damage
+  major crack: substrate_damage
+  minor crack: substrate_damage
+  spalling: substrate_damage
+  flaking: substrate_damage
+  delamination: substrate_damage
+  paint-peeling: substrate_damage
+  damp: damp_stain
+  dampness: damp_stain
+  moisture: damp_stain
+  water-seepage: damp_stain
+  water_seepage: damp_stain
+  seepage: damp_stain
+  waterleakage: damp_stain
+  wet: damp_stain
+  efflorescence: efflorescence
+  salt: efflorescence
+  stain: dirt_stain
+  dirt: dirt_stain
+  dirty: dirt_stain
+  graffiti: dirt_stain

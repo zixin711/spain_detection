@@ -1,0 +1,23 @@
+# 紫外专家 seg_uv —— 6 类，按荧光形态而非表型分类
+classes:
+  0: {name: fluor_point,     cn: 点状微弱荧光,   evidence_level: L1, color: [150, 220, 90]}
+  1: {name: fluor_local,     cn: 局域亮荧光,     evidence_level: L2, color: [190, 235, 60]}
+  2: {name: fluor_band,      cn: 条带/块状强荧光, evidence_level: L3, color: [230, 230, 40]}
+  3: {name: fluor_saturated, cn: 大面积饱和荧光, evidence_level: L4, color: [255, 180, 30]}
+  4: {name: fluor_chaotic,   cn: 杂乱深度荧光,   evidence_level: L5, color: [230, 90, 60]}
+  5: {name: fluor_artifact,  cn: 荧光干扰(非霉菌), evidence_level: null, color: [120, 120, 200]}
+
+# fluor_artifact 覆盖的干扰源，标注时按此清单收集负样本
+artifact_sources:
+  - 洗衣粉/清洁剂残留中的荧光增白剂
+  - 部分乳胶漆与腻子的荧光助剂
+  - 白色塑料件、PVC 线槽
+  - 硅胶密封胶
+  - 纸张、包装材料
+  - 盐析结晶
+  - 宠物尿渍
+
+source_map:
+  fluorescence: fluor_local
+  fluorescent: fluor_local
+  uv_mold: fluor_local

@@ -1,0 +1,14 @@
+# ── 训练与数据管线（只有训练机需要）──
+# 先按 CUDA 版本单独装 torch，不要让 pip 自己解：
+#   Ubuntu + RTX PRO 5000(sm_120)/3090(sm_86):
+#     pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+#   macOS (Apple Silicon，只做小规模试验):
+#     pip install torch torchvision
+ultralytics>=8.3.0
+roboflow>=1.1.30           # 下载 Roboflow Universe 数据集
+kagglehub>=0.3.0
+ImageHash>=4.3
+scikit-learn>=1.5          # 光源判别器 / 评估
+matplotlib>=3.8
+tqdm>=4.66
+pandas>=2.2

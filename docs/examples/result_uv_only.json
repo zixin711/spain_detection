@@ -1,0 +1,698 @@
+{
+  "record_id": "20260828-222854-df49",
+  "created_at": "2026-08-28T22:28:54+08:00",
+  "inputs": [
+    {
+      "index": 0,
+      "filename": "uv.jpg",
+      "modality": "uv",
+      "modality_conf": 1.0,
+      "modality_source": "auto",
+      "width": 1313,
+      "height": 876,
+      "quality": {
+        "blur_var": 1037.7,
+        "exposure": "ok",
+        "overexposed_ratio": 0.0,
+        "underexposed_ratio": 0.0034,
+        "passed": true,
+        "reasons": [],
+        "warnings": []
+      },
+      "wall_area_px": 1006128,
+      "wall_area_ratio": 0.8748,
+      "wall_area_fallback": false
+    }
+  ],
+  "fusion": {
+    "paired": false,
+    "registration_ok": null,
+    "inlier_ratio": null
+  },
+  "calibration": {
+    "mode": "none",
+    "px_per_cm": null
+  },
+  "summary": {
+    "level": "L3",
+    "level_name": "中度（块状/缝隙侵入）",
+    "level_range": [
+      "L3",
+      "L3"
+    ],
+    "severity_in_level": 0.5671,
+    "needs_confirmation": true,
+    "confirmation_hint": "本次仅有紫外照，面积口径按荧光区换算，且无法评估厚度与基材损伤。补一张白光照可缩小等级区间。",
+    "suspect": false,
+    "i_mold": 0.4264,
+    "rules_hit": [
+      "uv_coverage_l3_band"
+    ],
+    "conflict": false,
+    "confidence": 0.4877,
+    "unknown_reasons": [],
+    "index_level": "L3",
+    "visible_area_ratio": null,
+    "fluorescent_area_ratio": 0.317701,
+    "channels": {
+      "H": 0.5228,
+      "M": 0.3177,
+      "L": null
+    },
+    "channel_weights": {
+      "H": 0.53,
+      "M": 0.47,
+      "L": 0.0
+    },
+    "available_modalities": [
+      "uv"
+    ],
+    "instance_count": 55,
+    "by_class": {
+      "fluor_band": 2,
+      "fluor_local": 11,
+      "fluor_point": 42
+    },
+    "excluded": {},
+    "depth_band": null,
+    "dominant_fluor_pattern": "fluor_band"
+  },
+  "instances": [
+    {
+      "id": 1,
+      "source_index": 0,
+      "modality": "uv",
+      "cls": "fluor_band",
+      "cls_cn": "条带/块状强荧光",
+      "group": "fluor",
+      "conf": 0.6645,
+      "bbox": [
+        0,
+        0,
+        607,
+        573
+      ],
+      "polygon": [
+        [
+          0,
+          455
+        ],
+        [
+          187,
+          570
+        ],
+        [
+          209,
+          530
+        ],
+        [
+          221,
+          573
+        ],
+        [
+          237,
+          505
+        ],
+        [
+          156,
+          494
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 130549,
+      "area_ratio": 0.129754,
+      "area_cm2": null,
+      "position_hint": "画面上左区域",
+      "features": {
+        "dark_ratio": 0.0125,
+        "sat_mean": 0.5316,
+        "val_mean": 0.5427,
+        "hue_median": 240.0,
+        "fill_ratio": 0.5372,
+        "shadow_grad": 0.8609,
+        "contrast_var": 0.3779,
+        "highlight_loss": 0.744,
+        "texture_energy": 1.0
+      },
+      "uv_response": 0.2857,
+      "uv_attenuation": 0.2236
+    },
+    {
+      "id": 2,
+      "source_index": 0,
+      "modality": "uv",
+      "cls": "fluor_band",
+      "cls_cn": "条带/块状强荧光",
+      "group": "fluor",
+      "conf": 0.6323,
+      "bbox": [
+        640,
+        0,
+        1312,
+        875
+      ],
+      "polygon": [
+        [
+          991,
+          0
+        ],
+        [
+          1098,
+          36
+        ],
+        [
+          1148,
+          4
+        ],
+        [
+          1254,
+          122
+        ],
+        [
+          1230,
+          220
+        ],
+        [
+          1256,
+          408
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 107231,
+      "area_ratio": 0.106578,
+      "area_cm2": null,
+      "position_hint": "画面中右区域",
+      "features": {
+        "dark_ratio": 0.0766,
+        "sat_mean": 0.3594,
+        "val_mean": 0.4388,
+        "hue_median": 236.0,
+        "fill_ratio": 0.2442,
+        "shadow_grad": 0.1418,
+        "contrast_var": 0.2112,
+        "highlight_loss": 0.9923,
+        "texture_energy": 0.3225
+      },
+      "uv_response": 0.1622,
+      "uv_attenuation": 0.201
+    },
+    {
+      "id": 3,
+      "source_index": 0,
+      "modality": "uv",
+      "cls": "fluor_local",
+      "cls_cn": "局域亮荧光",
+      "group": "fluor",
+      "conf": 0.5815,
+      "bbox": [
+        799,
+        14,
+        880,
+        88
+      ],
+      "polygon": [
+        [
+          817,
+          18
+        ],
+        [
+          807,
+          27
+        ],
+        [
+          804,
+          43
+        ],
+        [
+          799,
+          48
+        ],
+        [
+          805,
+          58
+        ],
+        [
+          799,
+          63
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 2332,
+      "area_ratio": 0.002318,
+      "area_cm2": null,
+      "position_hint": "画面上中区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.5215,
+        "val_mean": 0.7284,
+        "hue_median": 236.0,
+        "fill_ratio": 0.5418,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.2671,
+        "highlight_loss": 0.1973,
+        "texture_energy": 1.0
+      },
+      "uv_response": 0.3773,
+      "uv_attenuation": 0.1615
+    },
+    {
+      "id": 4,
+      "source_index": 0,
+      "modality": "uv",
+      "cls": "fluor_point",
+      "cls_cn": "点状微弱荧光",
+      "group": "fluor",
+      "conf": 0.5997,
+      "bbox": [
+        302,
+        43,
+        317,
+        58
+      ],
+      "polygon": [
+        [
+          314,
+          43
+        ],
+        [
+          313,
+          44
+        ],
+        [
+          313,
+          45
+        ],
+        [
+          311,
+          47
+        ],
+        [
+          311,
+          48
+        ],
+        [
+          308,
+          51
+        ],
+        [
+          "…省略"
+        ]
+      ],
+      "area_px": 82,
+      "area_ratio": 8.2e-05,
+      "area_cm2": null,
+      "position_hint": "画面上左区域",
+      "features": {
+        "dark_ratio": 0.0,
+        "sat_mean": 0.5778,
+        "val_mean": 0.6646,
+        "hue_median": 244.0,
+        "fill_ratio": 0.781,
+        "shadow_grad": 1.0,
+        "contrast_var": 0.1968,
+        "highlight_loss": 0.9268,
+        "texture_energy": 1.0
+      },
+      "uv_response": 0.3822,
+      "uv_attenuation": 0.1783
+    }
+  ],
+  "recommendations": {
+    "title": "中度 · 块状/缝隙侵入",
+    "action": "加强清理",
+    "steps": [
+      "先湿法处理，禁止干刷，干刷会让孢子扬尘扩散",
+      "喷专用除霉剂静置 10~15 分钟",
+      "刷洗后用清水擦净，再强制干燥（风扇/除湿机）",
+      "缝隙霉需要铲除旧填缝剂并重新填缝，表面擦拭只能除色不能除菌"
+    ],
+    "ppe": "N95/KN95 口罩 + 手套 + 护目镜",
+    "recheck": "3 天后复检",
+    "class_notes": [],
+    "safety": [
+      "禁止将含氯漂白剂与含氨类清洁剂混用，会产生氯胺气体",
+      "清理时保持通风，佩戴口罩与手套",
+      "孕妇、儿童、呼吸道敏感人群回避作业现场",
+      "单块霉变面积超过约 1 平方米，或涉及中央空调/通风管道，建议交由专业机构处理"
+    ]
+  },
+  "robot_action": {
+    "action": "high_pressure_scrub",
+    "params": {
+      "spray": "high_pressure",
+      "brush": "strong",
+      "dwell_sec": 600,
+      "passes": 2,
+      "grout_focus": true
+    },
+    "target_regions": [
+      {
+        "instance_id": 1,
+        "source_index": 0,
+        "polygon": [
+          [
+            0,
+            455
+          ],
+          [
+            187,
+            570
+          ],
+          [
+            209,
+            530
+          ],
+          [
+            221,
+            573
+          ],
+          [
+            237,
+            505
+          ],
+          [
+            156,
+            494
+          ],
+          [
+            171,
+            433
+          ],
+          [
+            123,
+            444
+          ],
+          [
+            147,
+            375
+          ],
+          [
+            185,
+            438
+          ],
+          [
+            203,
+            357
+          ],
+          [
+            253,
+            394
+          ],
+          [
+            236,
+            495
+          ],
+          [
+            282,
+            507
+          ],
+          [
+            310,
+            394
+          ],
+          [
+            386,
+            456
+          ],
+          [
+            359,
+            371
+          ],
+          [
+            511,
+            332
+          ],
+          [
+            545,
+            224
+          ],
+          [
+            607,
+            212
+          ],
+          [
+            524,
+            150
+          ],
+          [
+            513,
+            190
+          ],
+          [
+            395,
+            223
+          ],
+          [
+            390,
+            277
+          ],
+          [
+            353,
+            255
+          ],
+          [
+            355,
+            176
+          ],
+          [
+            293,
+            175
+          ],
+          [
+            284,
+            123
+          ],
+          [
+            233,
+            139
+          ],
+          [
+            242,
+            192
+          ],
+          [
+            353,
+            245
+          ],
+          [
+            276,
+            243
+          ],
+          [
+            291,
+            294
+          ],
+          [
+            149,
+            358
+          ],
+          [
+            162,
+            279
+          ],
+          [
+            100,
+            252
+          ],
+          [
+            55,
+            281
+          ],
+          [
+            136,
+            221
+          ],
+          [
+            92,
+            201
+          ],
+          [
+            87,
+            104
+          ],
+          [
+            248,
+            4
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "bbox": [
+          0,
+          0,
+          607,
+          573
+        ],
+        "cls": "fluor_band",
+        "density": null,
+        "depth_band": null
+      },
+      {
+        "instance_id": 2,
+        "source_index": 0,
+        "polygon": [
+          [
+            991,
+            0
+          ],
+          [
+            1098,
+            36
+          ],
+          [
+            1148,
+            4
+          ],
+          [
+            1254,
+            122
+          ],
+          [
+            1230,
+            220
+          ],
+          [
+            1256,
+            408
+          ],
+          [
+            1180,
+            441
+          ],
+          [
+            1151,
+            532
+          ],
+          [
+            1181,
+            559
+          ],
+          [
+            1119,
+            562
+          ],
+          [
+            1161,
+            606
+          ],
+          [
+            1217,
+            596
+          ],
+          [
+            1256,
+            789
+          ],
+          [
+            1211,
+            693
+          ],
+          [
+            1213,
+            778
+          ],
+          [
+            1145,
+            746
+          ],
+          [
+            1202,
+            797
+          ],
+          [
+            1172,
+            832
+          ],
+          [
+            1126,
+            795
+          ],
+          [
+            1142,
+            856
+          ],
+          [
+            1115,
+            820
+          ],
+          [
+            1112,
+            850
+          ],
+          [
+            1108,
+            826
+          ],
+          [
+            1005,
+            867
+          ],
+          [
+            942,
+            848
+          ],
+          [
+            956,
+            829
+          ],
+          [
+            816,
+            852
+          ],
+          [
+            783,
+            822
+          ],
+          [
+            757,
+            849
+          ],
+          [
+            736,
+            816
+          ],
+          [
+            640,
+            847
+          ],
+          [
+            682,
+            875
+          ],
+          [
+            1312,
+            875
+          ],
+          [
+            1312,
+            0
+          ]
+        ],
+        "bbox": [
+          640,
+          0,
+          1312,
+          875
+        ],
+        "cls": "fluor_band",
+        "density": null,
+        "depth_band": null
+      }
+    ],
+    "note": ""
+  },
+  "model": {
+    "white": "baseline (no weights)",
+    "uv": "baseline (no weights)",
+    "grading_config": "0.4.0"
+  },
+  "disclaimer": "本系统为图像识别辅助工具，不提供菌种鉴定与健康诊断。深度为视觉估计，非实测。"
+}

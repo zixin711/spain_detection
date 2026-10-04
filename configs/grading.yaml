@@ -1,0 +1,192 @@
+# 分级配置 —— 全部阈值集中在此，标定脚本会回写这里
+# 对应 docs/DESIGN.md 第 2、3、4 章
+
+version: "0.4.0"
+
+# ---------------------------------------------------------------
+# 三证据通道定义与权重  I_mold = 0.4H + 0.35M + 0.25L
+# channel_mode 可切换口径（开放问题 #1）：
+#   evidence  = H 荧光活性 / M 可见覆盖 / L 深度厚度   （当前设计）
+#   density   = H 高密度面积占比 / M 中密度 / L 低密度 （备选口径）
+# ---------------------------------------------------------------
+channel_mode: evidence
+
+weights:
+  H: 0.40
+  M: 0.35
+  L: 0.25
+
+# 某模态缺失通道时的权重重归一化（见设计 3.3 证据可用性矩阵）
+modality_matrix:
+  white:
+    available: [M, L]
+    weights: {H: 0.0, M: 0.583, L: 0.417}
+    level_min: L2          # 白光判不了 L1
+    level_max: L5
+    confidence_factor: 1.0
+  uv:
+    available: [H, M]
+    weights: {H: 0.53, M: 0.47, L: 0.0}
+    level_min: L1
+    level_max: L5          # L5 只能给"疑似"，由 rules 里的 suspect 标记体现
+    uv_l5_is_suspect: true
+    confidence_factor: 0.85
+  both:
+    available: [H, M, L]
+    weights: {H: 0.40, M: 0.35, L: 0.25}
+    level_min: L1
+    level_max: L5
+    confidence_factor: 1.0
+
+# ---------------------------------------------------------------
+# 面积阈值：白光口径与紫外口径是两套（见设计 3.4）
+# 紫外荧光区通常大于白光可见区，A_uv ≈ k * A_white + b
+# k / b 由 scripts/calibrate_grading.py 用配对子集拟合后回写
+# ---------------------------------------------------------------
+area_thresholds:
+  white:
+    # 与用户给定的 L1~L5 定义一致，并已用 5 组配对样张验证：
+    # 白光可见霉斑占比  L1 0.019 / L2 0.018 / L3 0.173 / L4 0.462 / L5 0.486
+    # （L1 与 L2 在白光下几乎没有差别，正是靠紫外区分——符合"L1 肉眼不可见"的定义）
+    l2_max: 0.05           # 0 < 占比 < 5%  → L2
+    l3_max: 0.30           # 5% ~ 30%       → L3
+    # > 30% → L4
+    l5_hint_area: 0.45     # 覆盖率与衰减都超阈值 → 疑似 L5，需结构破坏证据确认
+    l5_hint_attenuation: 0.38
+    # L1 的定义是"白光下肉眼不可见，或仅有极微弱的隐约灰斑"。
+    # 所以白光下面积极小且颜色极浅时不能直接判 L2，要交给紫外去区分 L1/L2。
+    # 实测：L1 覆盖 0.019 衰减 0.156；L2 覆盖 0.018 衰减 0.207。
+    l2_min_area: 0.03
+    l2_min_attenuation: 0.18
+  uv:
+    # 紫外阈值由 data/paired_calib/ 的 5 组 L1~L5 配对样张实测标定（每级各 1 组，属种子值）：
+    # 紫外异常区覆盖率  L1 0.061 / L2 0.120 / L3 0.318 / L4 0.781 / L5 0.676
+    l1_max: 0.09           # <= 此值且有异常 → L1
+    l2_max: 0.20
+    l3_max: 0.50           # > 此值 → L4+（紫外分不开 L4/L5）
+    l5_attenuation: 0.30   # 覆盖率超 l3_max 且平均衰减超此值 → 疑似 L5，需白光确认
+uv_area_mapping:           # 标定后回写
+  k: 1.5
+  b: 0.0
+  calibrated: false
+  n_pairs: 0
+
+# ---------------------------------------------------------------
+# 密度分档（channel_mode=density 时使用；evidence 模式下用于实例级 H/M/L 标注）
+# ---------------------------------------------------------------
+density:
+  weights: {dark_ratio: 0.35, saturation: 0.20, fill_ratio: 0.25, area: 0.20}
+  high_min: 0.60
+  medium_min: 0.30
+
+# ---------------------------------------------------------------
+# 深度厚度分档（视觉代理量，非实测；见设计 3.7）
+# ---------------------------------------------------------------
+depth:
+  bands:
+    - {name: "≤0.1mm",     max_score: 0.15, mm_range: [0.0, 0.1]}
+    - {name: "0.1~0.5mm",  max_score: 0.35, mm_range: [0.1, 0.5]}
+    - {name: "0.5~2.0mm",  max_score: 0.65, mm_range: [0.5, 2.0]}
+    - {name: ">2.0mm",     max_score: 1.01, mm_range: [2.0, null]}
+  # 厚度代理量按面积加权后实测：L1 0.456 / L2 0.689 / L3 0.670 / L4 0.883 / L5 0.853
+  # 阈值设在 0.85，且必须配合足够的覆盖面积才能判 L4——单靠这个未标定的代理量不能定级
+  thick_layer_score: 0.85
+  thick_layer_min_area: 0.20
+  l5_score: 0.90                 # 深度分超过即直接 L5
+  feature_weights: {shadow_grad: 0.35, contrast_var: 0.25, highlight_loss: 0.20, texture_energy: 0.20}
+
+# ---------------------------------------------------------------
+# 硬规则（自上而下，先命中先返回；见设计 4.1）
+# ---------------------------------------------------------------
+rules:
+  grout_continuous_ratio: 0.40   # 缝隙线霉占比超过即算"缝隙连续变黑"
+  grout_min_area: 0.02           # 但还要有绝对面积：墙上一条细线不能算 L3
+  substrate_damage_min_area: 0.01
+  uv_chaotic_min_area: 0.01
+  uv_saturated_l4_area: 0.30     # 紫外口径下的 L4 面积阈值
+  isolated_spot_max_instances: 40
+  # 安全兜底（优先级高于区间判定，命中即抬级）
+  escalation:
+    single_blob_area_ratio: 0.25       # 单块连通霉斑占比 → 至少 L4
+    single_blob_area_cm2: 5000         # 已标定时：单块 ≥ 0.5 m² → 至少 L4
+    large_damp_stain_ratio: 0.35       # 大面积水痕 → 至少 L4，提示先治水
+
+# ---------------------------------------------------------------
+# UNKNOWN 回退触发条件（见设计 4.3）
+# ---------------------------------------------------------------
+unknown:
+  # 清晰度分两档：低于 warn 只扣置信度并提示，低于 hard 才判 UNKNOWN。
+  # 紫外照本身偏暗、对比度低，拉普拉斯方差天然比白光低一个量级，所以单独设阈值。
+  # 实测 5 组样张：白光 605~4823，紫外 16~1309（其中一张确实偏软，但检出仍然可用）。
+  blur_var_min: 60.0
+  blur_var_hard_min: 10.0
+  blur_var_min_uv: 30.0
+  blur_var_hard_min_uv: 5.0
+  over_under_exposed_max: 0.30
+  wall_area_ratio_min: 0.40
+  modality_conf_min: 0.80
+  mean_conf_min: 0.35
+  mold_vs_negative_margin: 0.10
+  boundary_epsilon: 0.01
+
+# ---------------------------------------------------------------
+# I_mold → 等级的参考区间（仅用于"指数校验"，不作为主判据）
+# ---------------------------------------------------------------
+# I_mold 的等级参考区间。用 data/paired_calib 的 5 组样张标定：
+#   白光单模态 L1 0.196 / L2 0.293 / L3 0.352 / L4 0.567 / L5 0.564
+#   紫外单模态 L1 0.147 / L2 0.210 / L3 0.426 / L4 0.822 / L5 0.819
+#   双模态     L1 0.207 / L2 0.291 / L3 0.420 / L4 0.684 / L5 0.717
+# 每级只有 1 组样本，属种子值；补足样本后跑 scripts/calibrate_grading.py 重新拟合。
+index_bands:
+  L1: [0.000, 0.240]
+  L2: [0.240, 0.330]
+  L3: [0.330, 0.500]
+  L4: [0.500, 0.760]
+  L5: [0.760, 1.001]
+conflict_level_gap: 2            # 规则与指数差 >= 2 级 → conflict，取更严重者
+index_check:
+  enabled: true
+  # index_bands 目前是经验初值，没有用真实数据标定过。
+  # 未标定时最多只允许抬 1 级，避免未经校准的指数把 L1 直接顶成 L4；
+  # 用 scripts/calibrate_grading.py 标定后把 calibrated 改成 true，才允许按实际差距抬级。
+  calibrated: false          # 样本量还太小（每级 1 组），先只允许抬 1 级
+  max_escalation_uncalibrated: 1
+
+# ---------------------------------------------------------------
+# 荧光量化（见设计 3.5）
+# ---------------------------------------------------------------
+# 紫外响应（见设计 3.5，v0.4 已按真实样张改写）
+# 实测：395nm 下墙面霉菌**不发黄绿荧光**，而是比墙面更暗（淬灭墙面涂料的荧光增白剂），
+# 菌落前沿呈亮白蕾丝状。所以主通道是"照明场归一化后的绝对衰减"，
+# 黄绿发射只作为补充通道保留（部分基材上确实存在）。
+fluorescence:
+  dark_threshold: 0.88           # R = V/照明场，低于此值判为菌落本体
+  lace_threshold: 1.05           # 高于此值且高频纹理强 → 菌落前沿亮丝
+  artifact_threshold: 1.10       # 亮且平滑无纹理 → 荧光增白剂/塑料件等干扰
+  coverage_reference: 0.60       # H 分里覆盖率的归一化参考（对应 L4 水平）
+  attenuation_reference: 0.40    # H 分里衰减深度的归一化参考（对应 L5 水平）
+  # 补充的发射型黄绿荧光通道
+  hue_min_deg: 35
+  hue_max_deg: 95
+  sat_min: 0.25
+  val_min: 0.20
+  baseline_percentile: 50
+  response_scale: 4.0
+
+# ---------------------------------------------------------------
+# 光源判别（见设计 3.1）
+# ---------------------------------------------------------------
+modality_classifier:
+  # 规则版阈值：uv_score = w·features，>0 判 uv
+  b_minus_r_mean_min: 12.0       # 紫外图 B-R 均值明显为正
+  value_mean_max: 110.0          # 紫外图整体偏暗
+  hue_concentration_min: 0.35    # 蓝紫色相集中度
+  color_entropy_max: 4.2
+  confident_margin: 0.30         # |score| 小于该值 → unknown，请用户确认
+
+# 图像预处理
+preprocess:
+  max_side: 1600
+  infer_size: 1024
+  min_instance_area_px: 64
+  morph_kernel: 3

@@ -1,0 +1,16 @@
+# ── 运行推理服务需要的（跨平台，Mac / Ubuntu 都能装）──
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9
+pydantic>=2.7
+numpy>=1.26
+opencv-python-headless>=4.10
+Pillow>=10.3
+pillow-heif>=0.16          # iPhone HEIC 直传解码
+PyYAML>=6.0
+qrcode>=7.4                # 启动时打印局域网访问二维码
+reportlab>=4.2             # PDF 报告
+
+# 装完这一个文件就能跑起来了（没有模型权重时自动用传统 CV 基线）。
+# 要训练模型 → 再装 requirements-train.txt
+# 要 GPU 加速推理 → 再装 requirements-gpu.txt

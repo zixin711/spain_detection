@@ -1,0 +1,120 @@
+# 处理建议知识库（设计文档第 10 章）
+# 查询键：level（L1~L5 / L0 / UNKNOWN） + 可选 class（表型）
+
+disclaimer: "本系统为图像识别辅助工具，不提供菌种鉴定与健康诊断。深度为视觉估计，非实测。"
+
+general_safety:
+  - 禁止将含氯漂白剂与含氨类清洁剂混用，会产生氯胺气体
+  - 清理时保持通风，佩戴口罩与手套
+  - 孕妇、儿童、呼吸道敏感人群回避作业现场
+  - 单块霉变面积超过约 1 平方米，或涉及中央空调/通风管道，建议交由专业机构处理
+
+levels:
+  L0:
+    title: 未见异常
+    action: 保持现状
+    steps: [定期通风保持室内相对湿度低于 60%, 关注卫生间、窗台、外墙内侧等易结露部位]
+    recheck: 无需专门复检
+  L0_UNVERIFIED:
+    title: 未见可见霉斑（未排除隐形期）
+    action: 建议补充紫光检测
+    steps: ["白光下未发现可见霉斑", "L1 隐形萌发期肉眼不可见，需 395nm 紫光才能发现", "建议用紫光手电补拍一张后重新检测"]
+    recheck: 补拍紫光照
+  L1:
+    title: 微轻度 · 隐形/早期萌发
+    action: 常规清洁 + 环境干预
+    steps:
+      - 干布或微湿布擦拭表面即可，无需药剂
+      - 重点是除湿与通风：把相对湿度控制在 60% 以下
+      - 排查该部位为什么潮湿（结露、渗漏、通风死角）
+      - 可选：低功率 UV 抑菌
+    ppe: 无特殊要求
+    recheck: 2 周后用紫光复检
+  L2:
+    title: 轻度 · 点状/表面着色
+    action: 局部清理
+    steps:
+      - 用中性清洁剂或 3% 过氧化氢局部擦拭
+      - 擦拭后必须彻底干燥，残留水分会立刻复发
+      - 排查局部结露源：窗框、冷水管、外墙冷桥
+    ppe: 手套；建议口罩
+    recheck: 1 周后复检
+  L3:
+    title: 中度 · 块状/缝隙侵入
+    action: 加强清理
+    steps:
+      - 先湿法处理，禁止干刷，干刷会让孢子扬尘扩散
+      - 喷专用除霉剂静置 10~15 分钟
+      - 刷洗后用清水擦净，再强制干燥（风扇/除湿机）
+      - 缝隙霉需要铲除旧填缝剂并重新填缝，表面擦拭只能除色不能除菌
+    ppe: N95/KN95 口罩 + 手套 + 护目镜
+    recheck: 3 天后复检
+  L4:
+    title: 重度 · 片状/厚质结块
+    action: 深度清理
+    steps:
+      - 隔离作业区域，封闭通风口，防止孢子扩散到其他房间
+      - 分区回字形慢速清理，避免交叉污染
+      - 受污染的墙纸、石膏板、保温层建议铲除更换而非清洗
+      - 必须同步排查渗漏与保温缺陷，否则必然复发
+      - 清理干燥后重涂防霉涂料
+    ppe: N95/KN95 + 手套 + 护目镜 + 长袖工作服
+    recheck: 1 周后与 1 个月后各复检一次
+  L5:
+    title: 严重 · 结构破坏/墙皮剥落
+    action: 专业治理
+    steps:
+      - 停止一切机械研磨与擦拭，继续作业会造成墙皮二次脱落
+      - 标记该区域并报警，联系专业霉害治理机构
+      - 先做渗漏检测与基材含水率检测
+      - 必要时局部拆除，重做防水与找平后再恢复饰面
+      - 治理完成后做验收复检
+    ppe: 交由专业机构，作业期间人员回避
+    recheck: 治理后验收复检
+  UNKNOWN:
+    title: 无法判定
+    action: 重新拍摄
+    steps:
+      - 距离墙面 30~50cm，正对墙面拍摄
+      - 白光照请开灯，避免逆光与阴影
+      - 紫光照请关灯，避免其他光源混入
+      - 确保画面主体是墙面，不要有大面积遮挡
+    recheck: 重拍后再检测
+
+# 按表型的补充说明
+by_class:
+  mold_black:
+    note: 着色深、易渗入涂层微孔。L3 以上通常需要铲涂并重刷防霉涂料，只擦表面会反复。
+  mold_green:
+    note: 多与持续高湿相关。重点在除湿与通风改造，单纯擦拭复发率很高。
+  mold_white:
+    note: 先确认不是返碱 —— 用水湿润，溶解消失的是盐析，不溶且有绒毛感的才是霉。
+  mold_pink:
+    note: 多见于瓷砖缝、地漏周边。重点是缝隙填补与日常保持干燥。
+  grout_mold:
+    note: 填缝剂多孔吸水，表面擦拭只能除色不能除菌。L3 起建议铲缝重填。
+  substrate_damage:
+    note: 已出现基材损伤，直接进入 L5 专业治理流程，不给清洁建议。
+  damp_stain:
+    negative: true
+    note: 这不是霉菌，是水渍或返潮痕迹。但存在潮湿风险，请先排查渗漏与结露，否则该部位迟早长霉。
+  efflorescence:
+    negative: true
+    note: 这不是霉菌，是返碱（盐析）。用除碱剂处理，治理路径与除霉不同。
+  dirt_stain:
+    negative: true
+    note: 这是污渍而非霉菌，常规清洁即可。
+  fluor_artifact:
+    negative: true
+    note: 该荧光疑似来自清洁剂残留、荧光增白剂、塑料件或涂料助剂，不是霉菌活性信号。
+
+# 机器人执行指令（设计文档第 11 章）
+robot_actions:
+  L0:      {action: none,               params: {}}
+  L0_UNVERIFIED: {action: rescan,       params: {switch_light_source: true, rescan_in_place: true}}
+  L1:      {action: dry_wipe,           params: {spray: 0, uv_power: low, brush_speed: slow, passes: 1}}
+  L2:      {action: micro_spray_wipe,   params: {spray: micro, agent: 抑菌剂, grind_speed: medium, passes: 1}}
+  L3:      {action: high_pressure_scrub, params: {spray: high_pressure, brush: strong, dwell_sec: 600, passes: 2, grout_focus: true}}
+  L4:      {action: deep_clean,         params: {pattern: 回字形, speed: slow, spray: max, passes: 3, isolate: true}}
+  L5:      {action: halt_and_alert,     params: {grinding: false, wipe: false, mark_zone: true, alert: true, require_human: true}}
+  UNKNOWN: {action: rescan,             params: {rescan_in_place: true, switch_light_source: true, adjust_light: true, fallback: human_assist}}

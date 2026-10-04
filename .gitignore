@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+data/raw/
+data/processed/
+data/paired_calib/
+data/review/
+storage/
+runs/
+models/*.pt
+models/*.onnx
+models/*.engine
+*.log
+.DS_Store

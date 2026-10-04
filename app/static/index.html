@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#12331f">
+<title>墙面霉菌检测</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">墙面霉菌检测</div>
+  <button id="btn-history" class="ghost">历史</button>
+</header>
+
+<!-- ① 采集页 -->
+<main id="view-capture" class="view">
+  <div class="hint-card" id="coverage-hint">
+    <div class="hint-title">当前可检测范围</div>
+    <div class="hint-body" id="coverage-text">还没有添加照片。白光照可检测 L2–L5，395nm 紫光照可检测 L1–L4，两者都有可覆盖 L1–L5。</div>
+  </div>
+
+  <div class="shots" id="shots"></div>
+
+  <label class="big-btn">
+    <input type="file" id="file-input" accept="image/*" capture="environment" multiple hidden>
+    <span class="big-btn-icon">＋</span>
+    <span>拍照 / 选择照片</span>
+  </label>
+
+  <div class="guide">
+    <div class="guide-title">拍摄要点</div>
+    <ul>
+      <li>距离墙面 30~50cm，镜头正对墙面</li>
+      <li>白光照请开灯，避免逆光和大片阴影</li>
+      <li>紫光照请关灯，避免其他光源混入，尽量不移动手机</li>
+      <li>可在画面里放一张 A4 纸做尺寸参照</li>
+    </ul>
+  </div>
+
+  <div class="safety">
+    ⚠️ 395nm 紫光属 UV-A：不要直视光源，不要照射他人眼睛与皮肤，儿童宠物请回避，单次照射控制在数十秒内。
+  </div>
+
+  <button id="btn-detect" class="primary" disabled>开始检测</button>
+</main>
+
+<!-- ② 结果页 -->
+<main id="view-result" class="view hidden">
+  <div class="level-banner" id="level-banner">
+    <div class="level-tag" id="level-tag">L?</div>
+    <div class="level-meta">
+      <div class="level-name" id="level-name"></div>
+      <div class="level-range" id="level-range"></div>
+    </div>
+  </div>
+
+  <div class="severity" id="severity-wrap">
+    <div class="severity-label"><span>同级严重度</span><span id="severity-val"></span></div>
+    <div class="bar"><div class="bar-fill" id="severity-bar"></div></div>
+  </div>
+
+  <div class="confirm-hint hidden" id="confirm-hint"></div>
+
+  <div class="channels" id="channels"></div>
+
+  <div class="canvas-wrap">
+    <div class="canvas-tabs" id="canvas-tabs"></div>
+    <canvas id="canvas"></canvas>
+    <div class="canvas-tip">点击标注区域查看详情</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="advice" id="advice"></div>
+
+  <div class="actions">
+    <a id="btn-save-img" class="secondary" download>保存标注图</a>
+    <a id="btn-pdf" class="secondary" target="_blank">下载报告</a>
+    <button id="btn-again" class="primary">重新检测</button>
+  </div>
+</main>
+
+<!-- ③ 历史页 -->
+<main id="view-history" class="view hidden">
+  <div id="history-list" class="history-list"></div>
+  <button id="btn-back" class="primary">返回</button>
+</main>
+
+<!-- 详情弹层 -->
+<div id="sheet" class="sheet hidden">
+  <div class="sheet-body">
+    <div class="sheet-head">
+      <div id="sheet-title"></div>
+      <button id="sheet-close" class="ghost">关闭</button>
+    </div>
+    <img id="sheet-crop" alt="">
+    <div id="sheet-fields"></div>
+    <div id="sheet-advice"></div>
+    <div class="sheet-feedback">
+      <div class="fb-title">检测结果不对？</div>
+      <div class="fb-btns">
+        <button data-kind="not_mold">不是霉菌</button>
+        <button data-kind="wrong_class">类别错了</button>
+        <button data-kind="wrong_modality">光源判错了</button>
+        <button data-kind="missed">有漏检</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<div id="loading" class="loading hidden"><div class="spinner"></div><div id="loading-text">检测中…</div></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
